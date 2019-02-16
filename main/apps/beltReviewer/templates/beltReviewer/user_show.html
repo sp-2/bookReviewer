@@ -1,0 +1,33 @@
+<html>
+<head>
+  <title>User Reviews</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'beltReviewer/css/my_style_sheet_form.css' %}" media="screen" title="no title"  charset="utf-8">
+  <link rel="stylesheet" href="{% static 'beltReviewer/css/my_style_sheet.css' %}" media="screen" title="no title"  charset="utf-8">
+</head>
+<body>
+  <div id = "header">
+    <a id="headera1" href="/books">Home</a>
+    <a id="headera2" href="/books/add">Add a book and review</a>
+    <a id="headera3" href="/process/logout">Logout</a>
+  </div>
+
+  <h2>User Alias: {{user.alias}}</h2>
+<div id ="show">
+  <p>Name: {{ user.name}}</p>
+  <p>Email: {{ user.email }}<p>
+  <p>Total Reviews:{{user.user_reviews.all|length}} </p>
+
+  <br>
+  <p>Posted Reviews on the following books:
+    <p>{{user.user_reviews.all.book.title}} </p>
+    {% for review in user.user_reviews.all %}
+      <br>
+        <hr class="line">
+      <br>
+       <p> <a href="/books/{{review.book.id}}">{{review.book.title}}  </p>
+     {% endfor %}
+
+</div>
+</body>
+</html>

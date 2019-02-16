@@ -1,0 +1,65 @@
+<html>
+    <head>
+       <title>Form</title>
+       <meta charset+"utf-8">
+       {% load static %}
+       <link rel="stylesheet" href="{% static 'beltReviewer/css/my_style_sheet.css' %}" media="screen" title="no title"  charset="utf-8">
+       <link rel="stylesheet" href="{% static 'beltReviewer/css/my_style_sheet_form.css' %}" media="screen" title="no title"  charset="utf-8">
+
+<style>
+  li {color:red;}
+</style>
+    </head>
+    <body>
+
+        <title>Login and Registration</title>
+<div class="container">
+        {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <h3>Register:</h3>
+        <form class= "form-style" action='/process/register' method='post'>
+                 {% csrf_token %}
+            <div>
+                Name: <input type='text' name='name'>
+            </div>
+            <div>
+                Alias: <input type='text' name='alias'>
+            </div>
+            <div>
+                Email: <input type='email' name='email'>
+            </div>
+            <div>
+                Password: <input type='password' name='password'>
+            </div>
+            <div>
+                Confirm Password: <input type='password' name='con_password'>
+            </div>
+            <div>
+                <input type='submit' value='Submit' class="btn btn-primary">
+            </div>
+        </form>
+        <h3> Login: </h3>
+        <form  class= "form-style" action='/process/login' method='post'>
+                         {% csrf_token %}
+            <div>
+                Email: <input type='email' name='email'>
+            </div>
+            <div>
+                Password: <input type='password' name='password'>
+            </div>
+            <div>
+                <input type='submit' value='Submit'  class="btn btn-primary">
+            </div>
+        </form>
+
+      </div>
+    </body>
+
+
+</html>

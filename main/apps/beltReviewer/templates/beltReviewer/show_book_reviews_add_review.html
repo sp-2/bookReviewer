@@ -1,0 +1,73 @@
+<html>
+    <head>
+       <title>Form</title>
+       <meta charset+"utf-8">
+       {% load static %}
+       <link rel="stylesheet" href="{% static 'beltReviewer/css/my_style_sheet.css' %}" media="screen" title="no title"  charset="utf-8">
+       <link rel="stylesheet" href="{% static 'beltReviewer/css/my_style_sheet_form.css' %}" media="screen" title="no title"  charset="utf-8">
+
+<style>
+  li {color:red;}
+</style>
+    </head>
+    <body>
+
+        <title>Add Book and Review</title>
+<div class="container">
+
+  <div id = "header">
+    <a id="headera1" href="/books">Home</a>
+    <a id="headera2" href="/process/logout">Logout</a>
+  </div>
+
+    <div id = "left">
+        <h3>{{book.title}}</h3>
+        <p>Author: {{book.author}}</p>
+        <br><br>
+        <h3>Reviews: </h3>
+
+         {% for review in book.book_reviews.all %}
+            <br>
+             <hr class="line">
+            <br>
+            <p>Rating: {{review.rating}} stars </p>
+            <p><a href="/users/{{review.reviewer.id}}">{{review.reviewer.name}}</a> says: {{review.desc}}</p>
+            {%if review.reviewer.id == request.session.id %}
+              <p>Posted on: {{review.created_at}}</p>
+              <a class="deleteReview" href="/delete/{{review.id}}">delete a review</a>
+            {% endif %}
+         {% endfor %}
+
+    </div>
+
+    <div id = "rightForm">
+        <h3>Add a Review:</h3>
+        <form class= "form-style" action='/process/add_review' method='post'>
+                 {% csrf_token %}
+
+            <div>
+                <label for="review">Review: <input type="text" name="review" id="review"></label>
+            </div>
+            <div>
+              Rating:
+              <select name="rating">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+              </select>
+            </div>
+            <div>
+                <input type='hidden' name= 'book_id' value={{book.id}} >
+            </div>
+            <div>
+                <input type='submit' value='Submit Review' >
+            </div>
+        </form>
+    </div>
+  </div>
+    </body>
+
+
+</html>

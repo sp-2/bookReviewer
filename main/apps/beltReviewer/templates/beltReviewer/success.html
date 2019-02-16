@@ -1,0 +1,44 @@
+<html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'beltReviewer/css/my_style_sheet.css' %}" media="screen" title="no title"  charset="utf-8">
+<link rel="stylesheet" href="{% static 'beltReviewer/css/my_style_sheet_form.css' %}" media="screen" title="no title"  charset="utf-8">
+
+<style>
+  h4 {color:green;}
+</style>
+<head>
+  <title>Books Home</title>
+</head>
+<body>
+  <div id = "header">
+    <h3 id="headerH3">Welcome, {{request.session.name}}!</h3>
+    <a id="headera1" href="/books/add">Add a book and review</a>
+    <a id="headera2" href="/process/logout">Logout</a>
+  </div>
+
+  <div id="wrapper">
+      <div id="left">
+        <h3>Recent Book Reviews:</h3>
+
+                     {% for review in all_reviews|slice:"0:3" %}
+                        <p><a href="/books/{{review.book.id}}">{{review.book.title}}</a></p>
+                        <p>Rating: {{review.rating}} stars </p>
+                        <p><a href="/users/{{review.reviewer.id}}">{{review.reviewer.name}}</a> says: {{review.desc}}</p>
+                        <p>{{review.id}}</p>
+                        <p>{{review.created_at}}</p>
+                        <br>
+                          <hr class="line">
+                        <br>
+                    {% endfor %}
+      </div>
+      <div id = "right">
+        <h3>Other books with reviews:</h3>
+                    <div id="act">
+                      {% for review in all_reviews|slice:"3:" %}
+                         <p><a href="/books/{{review.book.id}}">{{review.book.title}}</a></p>
+                      {% endfor %}
+                    </div>
+      </div>
+  </div>
+</body>
+</html>

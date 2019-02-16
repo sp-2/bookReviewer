@@ -1,0 +1,72 @@
+<html>
+    <head>
+       <title>Form</title>
+       <meta charset+"utf-8">
+       {% load static %}
+       <link rel="stylesheet" href="{% static 'beltReviewer/css/my_style_sheet.css' %}" media="screen" title="no title"  charset="utf-8">
+       <link rel="stylesheet" href="{% static 'beltReviewer/css/my_style_sheet_form.css' %}" media="screen" title="no title"  charset="utf-8">
+
+<style>
+  li {color:red;}
+</style>
+    </head>
+    <body>
+
+        <title>Add Book and Review</title>
+<div class="container">
+
+  <div id = "header">
+    <a id="headera1" href="/books">Home</a>
+    <a id="headera2" href="/process/logout">Logout</a>
+  </div>
+
+        <h3>Add a New Book Title and a Review:</h3>
+        <form class= "form-style" action='/process/add_book_add_review' method='post'>
+        <!-- <form class= "form-style" action='/process/add_book/1' method='post'> -->
+<!-- {{all_books}} -->
+                 {% csrf_token %}
+            <div>
+                <strong>Book Title: </strong><input type='text' name='title'>
+            </div>
+            <div>
+                <p><strong>Author:</strong></p>
+                <p>Choose from the list:</p>
+                <select name='existing_authors'>
+                        <option value=""></option>
+                        {% for author in authors %}
+                           {{author}}
+                           <option value='{{author}}'>{{author}}</option>
+                        {% endfor %}
+                </select>
+                <p>Or add a new author:<p> <input type='text' name='author'></p>
+            </div>
+            <div>
+                <label for="review"><strong>Review:</strong><input type="text" name="review" id="review"></label>
+            </div>
+            <div>
+              <strong>Rating:</strong>
+              <select name='rating'>
+                  {% comment %}
+                  {% for number in 5|get_range %}
+                     <option value={{number}}>{{number}}</option>
+                  {% endfor %}
+                  {% endcomment %}
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+              </select>
+              <strong>Stars</strong>
+            </div>
+
+            <div>
+                <input type='submit' value='Add book and Review' >
+            </div>
+        </form>
+
+      </div>
+    </body>
+
+
+</html>

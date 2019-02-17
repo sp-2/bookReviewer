@@ -8,7 +8,7 @@ import bcrypt
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+.[a-zA-Z]+$')
 NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
 
-class BlogManager(models.Manager):
+class UserManager(models.Manager):
     def registration_validator(self, postData):
         errors = {}
         if len(postData['name']) < 2:
@@ -61,7 +61,7 @@ class User(models.Model):
       password = models.CharField(max_length=255)
       created_at = models.DateTimeField(auto_now_add = True)
       updated_at = models.DateTimeField(auto_now = True)
-      objects = BlogManager()
+      objects = UserManager()
 
       def __repr__(self):
           return 'User(name=%s, alias=%s, email=%s,password=%s created_at=%s,updated_at=%s )'% (self.name, self.alias, self.email, self.password, self.created_at, self.updated_at)
